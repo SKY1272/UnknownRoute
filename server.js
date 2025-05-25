@@ -1,31 +1,20 @@
-const express = require('express');
-const app = express();
-
+const express=require('express');
+const app=express();
+const port=5000;
 app.use(express.json());
-
-app.get('/products', (req, res) => {
-  res.send('Here is the list of all products.');
+app.get('/',(req,res)=>{
+res.send('Hello World!')
 });
-
-app.post('/products', (req, res) => {
-  res.send('A new product has been added.');
-});
-
-app.get('/categories', (req, res) => {
-  res.send('Here is the list of all categories.');
-});
-
-app.post('/categories', (req, res) => {
-  res.send('A new category has been created.');
-});
-
-// Wildcard route for 404
-app.all('*', (req, res) => {
-  res.status(404).send('<h1>404 - Page Not Found</h1>');
-});
-
-const PORT = 4000;
-app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
-});
-
+app.get('/welcome/:username',(req,res)=>{
+  let username=req.params.username;
+  let role=req.query.role || 'Admin';
+  res.send(`Welcome ${username} your role is ${role}`);
+})
+app.get('/welcome/',(req,res)=>{
+  const username=req.query.username || 'Guest';
+  const role=req.query.role || 'User';
+  res.send(`Welcome ${username} your role is ${role}`);
+})
+app.listen(port,()=>{
+  console.log(`Example app listening at http://localhost:${port}`)
+})

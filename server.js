@@ -2,8 +2,8 @@ const express=require('express');
 const app=express();
 const port=4000;
 
-const StudentRouter=require('./router/students');
-const CourseRouter=require('./router/course');
+const StudentRouter=require('./router2/students');
+const CourseRouter=require('./router2/course');
 app.use(express.json());
 
 app.use('/students',StudentRouter);

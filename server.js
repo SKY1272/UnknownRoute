@@ -2,12 +2,17 @@ const express=require('express');
 const app=express();
 const port=4000;
 
-const booksRouter=require('./router/books');
+const StudentRouter=require('./router/students');
+const CourseRouter=require('./router/course');
 app.use(express.json());
 
-app.use('/books',booksRouter);
+app.use('/students',StudentRouter);
+app.use('/course',CourseRouter);
+app.use((req,res)=>{
+  res.status(404).send('404 not found');
+})
 app.get('/',(req,res)=>{
-  res.send('Hello World!')
+  res.send('welcome to studnents and courses api');
 })
 app.listen(port,()=>{
   console.log(`Example app listening at http://localhost:${port}`)

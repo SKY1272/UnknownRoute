@@ -1,19 +1,31 @@
-const express=require('express');
-const app=express();
-const port=4000;
+const express = require('express');
+const app = express();
+const port = 3000;
 
-const StudentRouter=require('./router2/students');
-const CourseRouter=require('./router2/course');
+// Import routes
+const userRoutes = require('./router3/userRoutes');
+const userProducts = require('./router3/userProducts');
+const cartRoutes = require('./router3/cartRoutes');
+
+// Use middleware
 app.use(express.json());
 
-app.use('/students',StudentRouter);
-app.use('/course',CourseRouter);
-app.use((req,res)=>{
-  res.status(404).send('404 not found');
-})
-app.get('/',(req,res)=>{
-  res.send('welcome to studnents and courses api');
-})
-app.listen(port,()=>{
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+// Use routes
+app.use('/users', userRoutes);
+app.use('/products', userProducts);
+app.use('/cart', cartRoutes);
+
+// Default route
+app.get('/', (req, res) => {
+  res.send("Welcome to the E-Commerce API!");
+});
+
+// Handle 404
+app.use((req, res) => {
+  res.status(404).send("Page not found");
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
